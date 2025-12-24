@@ -1,0 +1,1 @@
+document.getElementById('lang-switch').addEventListener('click', function() {  // This would toggle between EN and 中文  const currentLang = document.documentElement.lang;  if (currentLang === 'en') {    document.documentElement.lang = 'zh';    alert('Language switched to 中文');  } else {    document.documentElement.lang = 'en';    alert('Language switched to English');  }});
