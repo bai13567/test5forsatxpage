@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore satx</title>
+  <style>
+    :root { --bg-dark: #0a0a0a; --card-bg: #121212; --text-primary: #ffffff; --text-secondary: #a0a0a0; --border-color: #252525; --bitcoin-orange: #F7931A; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg-dark); color:var(--text-primary); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1.6; padding:4rem 0; }
+    .container { width:100%; max-width:800px; margin:0 auto; padding:0 1.5rem; }
+    a { color:var(--bitcoin-orange); text-decoration:none; } a:hover { text-decoration:underline; }
+    .card { background:var(--card-bg); padding:1.5rem; border-radius:0.5rem; margin-bottom:2rem; }
+    input { width:100%; padding:0.5rem; background:#1a1a1a; border:1px solid var(--border-color); color:white; border-radius:0.25rem; }
+    h1 { font-size:2.25rem; margin-bottom:2rem; }
+    h2 { font-size:1.5rem; margin-bottom:1rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Explore satx</h1>
+    
+    <div class="card">
+      <h2>Key Metrics</h2>
+      <p>Total Supply: 2,099,999,997,690,000 satx</p>
+      <p>Mint Completed: 2024-01-02</p>
+    </div>
+
+    <div class="card">
+      <h2>Blockchain Explorer</h2>
+      <p style="color:var(--text-secondary);">Coming soon</p>
+      <div style="margin-top:1.5rem;">
+        <label for="search" style="display:block; margin-bottom:0.5rem;">Search satx:</label>
+        <input type="text" id="search" placeholder="Enter inscription ID or address" disabled />
+        <p style="color:var(--text-secondary); font-size:0.875rem; margin-top:0.5rem;">Lookup functionality coming soon</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
