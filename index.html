@@ -1,313 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>satx — 1:1 with every Bitcoin satoshi</title>
-  <meta name="description" content="Precise. Finite. Bitcoin-native.">
-  <style>
-    :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #121212;
-      --text-primary: #ffffff;
-      --text-secondary: #a0a0a0;
-      --border-color: #252525;
-      --accent-color: #F7931A; /* Bitcoin Orange */
-      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-    }
-    a { color: var(--accent-color); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-    
-    /* Header */
-    header { background: #0f0f0f; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
-    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
-    .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
-    .nav-links { display: none; }
-    @media (min-width: 768px) { .nav-links { display: flex; gap: 1.5rem; } }
-    .nav-links a { color: var(--text-secondary); font-size: 0.95rem; }
-    .nav-links a:hover { color: var(--text-primary); }
-    .lang-select { background: #1a1a1a; color: white; border: 1px solid var(--border-color); border-radius: 0.25rem; padding: 0.25rem 0.5rem; font-size: 0.9rem; }
-
-    /* Hero */
-    .hero { text-align: center; padding: 4rem 0; }
-    .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; max-width: 800px; margin-left: auto; margin-right: auto; }
-    .hero p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
-    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; max-width: 800px; margin: 2rem auto; }
-    @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
-    .stat-card { background: var(--bg-secondary); padding: 1rem; border-radius: 0.5rem; text-align: center; }
-    .stat-label { font-size: 0.8rem; color: var(--text-secondary); }
-    .stat-value { font-family: monospace; font-weight: 600; font-size: 1rem; }
-    .cta-group { display: flex; flex-direction: column; gap: 1rem; max-width: 500px; margin: 2rem auto; }
-    @media (min-width: 640px) { .cta-group { flex-direction: row; justify-content: center; } }
-    .btn { padding: 0.75rem 1.5rem; border-radius: 0.375rem; font-weight: 600; text-align: center; }
-    .btn-primary { background: var(--accent-color); color: #000; }
-    .btn-secondary { background: transparent; border: 1px solid var(--border-color); color: white; }
-
-    /* Sub Hook - Lower visual weight */
-    .sub-hook { text-align: center; padding: 3rem 0; background: #0f0f0f; }
-    .sub-hook h2 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-primary); }
-    .sub-hook p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
-
-    /* Cards */
-    .cards-grid { display: grid; gap: 1.5rem; margin: 3rem 0; }
-    @media (min-width: 768px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
-    .card { background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.5rem; text-align: center; }
-    .card h3 { font-weight: 600; margin-bottom: 0.75rem; }
-    .card p { color: var(--text-secondary); font-size: 0.95rem; }
-
-    /* Fair Distribution */
-    .fair-section { background: var(--bg-secondary); padding: 4rem 0; }
-    .fair-principles { list-style: none; text-align: center; margin: 2rem 0; }
-    .fair-principles li { display: inline-block; margin: 0 1rem; color: var(--text-primary); font-weight: 500; }
-    .timeline { display: flex; justify-content: space-around; margin-top: 2rem; text-align: center; font-size: 0.9rem; }
-    .timeline .date { color: var(--accent-color); display: block; margin-bottom: 0.5rem; }
-
-    /* Use Cases */
-    .use-cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 3rem 0; }
-    @media (min-width: 768px) { .use-cases-grid { grid-template-columns: repeat(4, 1fr); } }
-
-    /* Footer */
-    footer { border-top: 1px solid var(--border-color); padding: 2rem 0; font-size: 0.9rem; color: var(--text-secondary); }
-    .footer-content { display: flex; flex-direction: column; gap: 1.5rem; }
-    @media (min-width: 768px) { .footer-content { flex-direction: row; justify-content: space-between; } }
-    .disclaimer { background: #1a1a1a; border-left: 4px solid var(--accent-color); padding: 1rem; margin: 2rem 0; font-size: 0.85rem; }
-
-    /* How it works */
-    .flow-diagram { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
-    .flow-step { padding: 0.5rem 1rem; background: var(--bg-secondary); border-radius: 0.375rem; font-size: 0.9rem; min-width: 120px; }
-
-    /* Hide by default */
-    .hidden { display: none !important; }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>satx — 1:1 with every Bitcoin satoshi</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="config.js" defer></script>
+    <script src="app.js" defer></script>
 </head>
-<body data-lang="en">
-  <header>
-    <div class="container nav-container">
-      <div class="logo">satx</div>
-      <nav class="nav-links">
-        <a href="#why"><span class="nav-text" data-key="nav_why">Why satx</span></a>
-        <a href="#how"><span class="nav-text" data-key="nav_tech">Tech</span></a>
-        <a href="#use-cases"><span class="nav-text" data-key="nav_usecases">Use Cases</span></a>
-        <a href="#community"><span class="nav-text" data-key="nav_community">Community</span></a>
-        <a href="docs.html"><span class="nav-text" data-key="nav_docs">Docs</span></a>
-      </nav>
-      <select id="language" class="lang-select">
-        <option value="en">EN</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1><span id="hero-title"></span></h1>
-      <p><span id="hero-subtitle"></span></p>
-      
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-label"><span id="label_supply"></span></div><div class="stat-value" id="supply-value">2,099,999,997,690,000</div></div>
-        <div class="stat-card"><div class="stat-label"><span id="label_standard"></span></div><div class="stat-value">BRC-20 / Ordinals</div></div>
-        <div class="stat-card"><div class="stat-label"><span id="label_distribution"></span></div><div class="stat-value"><span id="value_distribution"></span></div></div>
-        <div class="stat-card"><div class="stat-label"><span id="label_mint"></span></div><div class="stat-value">2024-01-02</div></div>
-      </div>
-
-      <div class="cta-group">
-        <a href="explore.html" target="_blank" class="btn btn-primary"><span id="btn_explore_hero"></span></a>
-        <a href="docs.html" target="_blank" class="btn btn-secondary"><span id="btn_whitepaper"></span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Community Opportunities - Lower weight -->
-  <section class="sub-hook">
-    <div class="container">
-      <h2><span id="op_title"></span></h2>
-      <p><span id="op_desc"></span></p>
-      <a href="opportunities.html" target="_blank" class="btn btn-secondary" style="background: var(--bg-secondary);"><span id="btn_explore_op"></span></a>
-    </div>
-  </section>
-
-  <section id="why">
-    <div class="container">
-      <h2 style="text-align:center; font-size:1.875rem; margin-bottom:2rem;"><span data-key="why_title">Why satx Exists</span></h2>
-      <div class="cards-grid">
-        <div class="card">
-          <h3>Precision</h3>
-          <p><span data-key="why_precision">Exact 1:1 mapping to satoshis</span></p>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">satx</div>
+        <nav>
+            <a href="#/" onclick="route()">Home</a>
+            <a href="#/explore" onclick="route()">Explore</a>
+            <a href="#/opportunities" onclick="route()">Opportunities</a>
+            <a href="#/docs" onclick="route()">Docs</a>
+        </nav>
+        <div class="lang-switch">
+            <button onclick="switchLang('en')" class="lang-btn">EN</button>
+            <span>/</span>
+            <button onclick="switchLang('zh')" class="lang-btn">中文</button>
         </div>
-        <div class="card">
-          <h3>Legacy</h3>
-          <p><span data-key="why_legacy">Built to last on Bitcoin</span></p>
-        </div>
-        <div class="card">
-          <h3>Bitcoin-native</h3>
-          <p><span data-key="why_native">Lives where Bitcoin lives</span></p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <section id="how" style="padding: 4rem 0;">
-    <div class="container">
-      <h2 style="text-align:center; font-size:1.875rem; margin-bottom:2rem;"><span data-key="how_title">How satx Works</span></h2>
-      <div class="flow-diagram">
-        <div class="flow-step">Bitcoin</div>
-        <div class="flow-step">Ordinals</div>
-        <div class="flow-step">Inscriptions</div>
-        <div class="flow-step">Applications</div>
-      </div>
-      <ol style="list-style: decimal; margin: 2rem 1.5rem; color: var(--text-secondary);">
-        <li style="margin-bottom: 0.5rem;"><span data-key="step_1">Numbering</span></li>
-        <li style="margin-bottom: 0.5rem;"><span data-key="step_2">Inscription</span></li>
-        <li style="margin-bottom: 0.5rem;"><span data-key="step_3">Tracing with satoshis</span></li>
-      </ol>
-    </div>
-  </section>
+    <!-- Main Content Container -->
+    <main id="app"></main>
 
-  <section class="fair-section">
-    <div class="container">
-      <h2 style="text-align:center; font-size:1.875rem; margin-bottom:2rem;"><span data-key="fair_title">Fair by design</span></h2>
-      <ul class="fair-principles">
-        <li>No pre-mine</li>
-        <li>No team allocation</li>
-        <li>No privileged mint</li>
-        <li>Mint completed on 2024-01-02</li>
-      </ul>
-      <div class="timeline">
-        <div><span class="timeline .date">2023-04-24</span> deployed</div>
-        <div><span class="timeline .date">Mint period</span> Active</div>
-        <div><span class="timeline .date">2024-01-02</span> completed</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="use-cases" style="padding: 4rem 0;">
-    <div class="container">
-      <h2 style="text-align:center; font-size:1.875rem; margin-bottom:2rem;"><span data-key="usecases_title">Use Cases</span></h2>
-      <div class="use-cases-grid">
-        <div class="card"><h3>Collectibles</h3><p><span data-key="uc_collectibles">Digital collectibles</span></p></div>
-        <div class="card"><h3>Store of Value</h3><p><span data-key="uc_sov">Long-term value storage</span></p></div>
-        <div class="card"><h3>DeFi</h3><p><span data-key="uc_defi">Future cross-chain DeFi</span></p></div>
-        <div class="card"><h3>Identity</h3><p><span data-key="uc_did">Decentralized identity (DID)</span></p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="community" style="padding: 4rem 0; background: var(--bg-secondary);">
-    <div class="container">
-      <h2 style="text-align:center; font-size:1.875rem; margin-bottom:2rem;"><span data-key="community_title">Community</span></h2>
-      <div style="display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;">
-        <div>
-          <h3><span data-key="global">Global</span></h3>
-          <ul style="margin-top:1rem;">
-            <li><a href="https://x.com/bai13567?s=21" target="_blank">X (Twitter)</a></li>
-            <li><a href="https://t.me/satxbrc20" target="_blank">Telegram</a></li>
-          </ul>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#/docs" onclick="route()"><span data-i18n="whitepaper"></span> / <span data-i18n="docs_faq"></span></a>
+            <a href="#" onclick="alert(i18n[currentLang].disclaimer); return false;" target="_blank"><span data-i18n="disclaimer"></span></a>
         </div>
-        <div>
-          <h3><span data-key="china">China</span></h3>
-          <ul style="margin-top:1rem;">
-            <li><a href="https://qun.qq.com/universal-share/share?ac=1&authKey=dgB%2Bz4y5wGNOYY3626PhhaG89Zg1I5JQZ85NMVmcNCTky6qTVvclubVYjsi95F06&busi_data=eyJncm91cENvZGUiOiI5NDk3NzcwNzkiLCJ0b2tlbiI6IkRZNFA3NDhLbTZNeEl3TWQ5SkR1UWVFSi9peVhyUTg5VktkeVZ4VkVQaG0xWUFtWW56R21zVzZhUzFFU3JPRHkiLCJ1aW4iOiI4MzY1MzcyODIifQ%3D%3D&data=DPC9raCiNRu0X2ZvvcMNTtvAds7U51usHrhuBj1IQQrc1eetUhe4UNFeB7EAcjMZqHC39HjfQwDXr-rqZOwCtA&svctype=4&tempid=h5_group_info" target="_blank">QQ 群</a></li>
-          </ul>
+        <div class="social-links">
+            <div class="social-group">
+                <strong>Global:</strong>
+                <a href="https://x.com/bai13567?s=21" target="_blank">X (Twitter)</a>
+                <a href="https://t.me/satxbrc20" target="_blank">Telegram</a>
+            </div>
+            <div class="social-group">
+                <strong>China:</strong>
+                <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=dgB%2Bz4y5wGNOYY3626PhhaG89Zg1I5JQZ85NMVmcNCTky6qTVvclubVYjsi95F06&busi_data=eyJncm91cENvZGUiOiI5NDk3NzcwNzkiLCJ0b2tlbiI6IkRZNFA3NDhLbTZNeEl3TWQ5SkR1UWVFSi9peVhyUTg5VktkeVZ4VkVQaG0xWUFtWW56R21zVzZhUzFFU3JPRHkiLCJ1aW4iOiI4MzY1MzcyODIifQ%3D%3D&data=DPC9raCiNRu0X2ZvvcMNTtvAds7U51usHrhuBj1IQQrc1eetUhe4UNFeB7EAcjMZqHC39HjfQwDXr-rqZOwCtA&svctype=4&tempid=h5_group_info" target="_blank">QQ Group</a>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div>
-          <a href="docs.html"><span data-key="footer_whitepaper">Whitepaper</span></a><br/>
-          <a href="docs.html"><span data-key="footer_docs">Docs / FAQ</span></a>
-        </div>
-        <div>
-          <strong><span data-key="disclaimer_title">Disclaimer:</span></strong><br/>
-          <span id="footer_disclaimer"></span>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // 配置语言包
-    const langConfig = {
-      en: {
-        hero_title: "satx — 1:1 with every Bitcoin satoshi",
-        hero_subtitle: "2,099,999,997,690,000 satoshis. Precise. Finite. Bitcoin-native.",
-        label_supply: "Supply",
-        label_standard: "Standard",
-        label_distribution: "Distribution",
-        value_distribution: "Fair / No pre-mine",
-        label_mint: "Mint completed",
-        btn_explore_hero: "Explore satx",
-        btn_whitepaper: "Read Whitepaper",
-        op_title: "Community Opportunities",
-        op_desc: "Opportunities discovered and shared by satx community members.",
-        btn_explore_op: "Explore Opportunities",
-        nav_why: "Why satx",
-        nav_tech: "Tech",
-        nav_usecases: "Use Cases",
-        nav_community: "Community",
-        nav_docs: "Docs",
-        why_title: "Why satx Exists",
-        why_precision: "Exact 1:1 mapping to satoshis",
-        why_legacy: "Built to last on Bitcoin",
-        why_native: "Lives where Bitcoin lives",
-        how_title: "How satx Works",
-        step_1: "Numbering",
-        step_2: "Inscription",
-        step_3: "Tracing with satoshis",
-        fair_title: "Fair by design",
-        usecases_title: "Use Cases",
-        uc_collectibles: "Digital collectibles",
-        uc_sov: "Long-term value storage",
-        uc_defi: "Future cross-chain DeFi",
-        uc_did: "Decentralized identity (DID)",
-        community_title: "Community",
-        global: "Global",
-        china: "China",
-        footer_whitepaper: "Whitepaper",
-        footer_docs: "Docs / FAQ",
-        disclaimer_title: "Disclaimer:",
-        footer_disclaimer: "Community Opportunities are not issued by satx. satx does not guarantee returns and only provides information access."
-      },
-      zh: {
-        hero_title: "satx — 与每个比特币聪 1:1 对应",
-        hero_subtitle: "2,099,999,997,690,000 聪。精确。有限。原生比特币。",
-        label_supply: "供应量",
-        label_standard: "标准",
-        label_distribution: "分配",
-        value_distribution: "公平 / 无预挖",
-        label_mint: "铸造完成",
-        btn_explore_hero: "探索 satx",
-        btn_whitepaper: "阅读白皮书",
-        op_title: "社区机会",
-        op_desc: "由 satx 社区成员发现并分享的机会。",
-        btn_explore_op: "探索机会",
-        nav_why: "为何存在",
-        nav_tech: "技术",
-        nav_usecases: "应用场景",
-        nav_community: "社区",
-        nav_docs: "文档",
-        why_title: "为何存在 satx",
-        why_precision: "与聪精确 1:1 映射",
-        why_legacy: "构建于比特币之上，历久弥新",
-        why_native: "生于比特币，长于比特币",
-        how_title: "satx 的运作方式",
-        step_1: "编号",
-        step_2: "铭刻",
-        step_3: "随聪流转可追溯",
-        fair_title: "公平设计",
-        usecases_title: "应用场景",
-        uc_collectibles: "数字收藏品",
-        uc_sov: "长期价值存储",
-        uc_defi: "未来跨链 DeFi",
-        uc_did: "
+    </footer>
+</body>
+</html>
