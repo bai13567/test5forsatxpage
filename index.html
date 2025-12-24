@@ -1,10 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>GitHub Pages</title>
-</head>
-<body>
-  <h1>Hello</h1>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head>  <meta charset="utf-8" />  <meta name="viewport" content="width=device-width, initial-scale=1" />  <title>My GitHub Pages</title>  <meta name="description" content="Simple multi-page site on GitHub Pages" />  <style>    :root { --bg:#0b1220; --card:#101a2e; --text:#e5e7eb; --muted:#9aa4b2; --link:#60a5fa; --border:rgba(255,255,255,.10); }    body { margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--text); }    .wrap { width:min(980px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 48px; }    .hero { padding: 12px 0 18px; }    h1 { margin: 8px 0 8px; font-size: clamp(30px, 4vw, 46px); line-height: 1.1; }    p { margin: 8px 0; color: var(--muted); line-height: 1.8; }    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 18px; }    .card { background: var(--card); border:1px solid var(--border); border-radius: 14px; padding: 14px 14px; }    a { color: var(--link); text-decoration: none; }    a:hover { text-decoration: underline; }    .small { font-size: 13px; color: var(--muted); }    .footer { margin-top: 26px; }  </style></head><body>  <main class="wrap">    <section class="hero">      <h1>Welcome</h1>      <p>这是一个最简的 GitHub Pages 多页面站点：主页 index.html + 若干内容页（a.html ~ k.html，按需使用）。</p>      <p class="small">提示：把下面的链接改成你实际要用到的页面即可，不需要全部都建。</p>    </section>    <section class="grid">      <div class="card"><a href="a.html">A 页面</a><div class="small">示例内容页</div></div>      <div class="card"><a href="b.html">B 页面</a><div class="small">示例内容页</div></div>      <div class="card"><a href="c.html">C 页面</a><div class="small">示例内容页</div></div>      <div class="card"><a href="d.html">D 页面</a><div class="small">示例内容页</div></div>    </section>    <section class="footer small">      © <span id="y"></span> Your Name    </section>  </main>  <script>    document.getElementById('y').textContent = new Date().getFullYear();  </script></body></html>
